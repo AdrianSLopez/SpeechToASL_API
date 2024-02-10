@@ -9,7 +9,7 @@ import pandas as pd
 import IPython
 import torchaudio
 from PIL import Image
-import os
+import os, shutil
 
 
 def getASL(device, model, bundle, audio):
@@ -64,6 +64,13 @@ def getASL(device, model, bundle, audio):
 
     merged_asl = None
     folder = '/Users/adria/Desktop/SpeechToASL_API/output/'
+    
+    # Empty out folder
+    if os.path.isdir(folder):
+        shutil.rmtree(folder)
+
+    os.mkdir(folder)
+
     signs_folder = '/Users/adria/Desktop/SpeechToASL_API/signs/'
 
     for word_paths in asl_sign_paths:
