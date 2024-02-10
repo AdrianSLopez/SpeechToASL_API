@@ -5,6 +5,8 @@ import sys
 sys.path.insert(1, '/application/')
 from application.asl_generator import getASL
 from application.models.AudioModel import AudioModel
+from fastapi import FastAPI, File, UploadFile
+import shutil
 
 app = FastAPI()
 
@@ -23,11 +25,29 @@ print('Speech to ASL API [STARTED]')
 print('Speech to ASL API [STARTED]')
 
 @app.get("/")
-def read_root():
+async def read_root():
     sign_filenames = getASL(device, model, bundle, audio_id_queue[0])
-    return {"sign_image_paths": sign_filenames}
+    return {"sign_image_paths": '2'}
 
-@app.get("/audio/{item_id}")
-def read_item(item_id: int, query_param: str = None):
-    if item_id >= len(audio_id_queue): return {"NULL": None}
-    return {"sign_image_paths": getASL(device, model, bundle, audio_id_queue[item_id])}
+@app.get("/asl_images/{audio_id}")
+def get_asl_images(audio_id: int, query_param: str = None):
+    if audio_id >= len(audio_id_queue): return {"NULL": None}
+    return {"sign_image_paths": getASL(device, model, bundle, audio_id_queue[audio_id])}
+
+
+@app.post("/upload_audio")
+async def upload_audio(file: UploadFile = File(...)):
+    """
+    Example POST request endpoint that receives an audio file.
+    """
+    path = f"files/{file.filename}"
+    audio_id_queue[len(audio_id_queue)] = "C:/Users/adria/Desktop/SpeechToASL_API/files/"+file.filename 
+
+
+    with open(path, 'w+b') as file2:
+        shutil.copyfileobj(file.file, file2)
+
+    return {
+        'audio_id': len(audio_id_queue)-1,
+        'file': file.filename    
+    }
