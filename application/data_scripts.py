@@ -57,3 +57,9 @@ def create_transcript_dictionary(transcript_file):
         transcript_dictionary[line_info[0]] = line_info[1].strip()
     
     return transcript_dictionary
+
+def resetOuput(folder):
+    if os.path.isdir(folder):
+        shutil.rmtree(folder)
+
+    os.mkdir(folder)

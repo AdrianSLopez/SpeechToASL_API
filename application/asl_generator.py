@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(2, '/application/')
-from .data_scripts import custom_audio_input
+from .data_scripts import custom_audio_input, resetOuput
 from .greedyCTCDecoder import GreedyCTCDecoder
 from .text_to_asl import get_asl_transcript
 import torch
@@ -9,7 +9,6 @@ import pandas as pd
 import IPython
 import torchaudio
 from PIL import Image
-import os, shutil
 
 
 def getASL(device, model, bundle, audio):
@@ -64,14 +63,8 @@ def getASL(device, model, bundle, audio):
 
     merged_asl = None
     folder = '/Users/adria/Desktop/SpeechToASL_API/output/'
-    
-    # Empty out folder
-    if os.path.isdir(folder):
-        shutil.rmtree(folder)
-
-    os.mkdir(folder)
-
     signs_folder = '/Users/adria/Desktop/SpeechToASL_API/signs/'
+    resetOuput(folder)
 
     for word_paths in asl_sign_paths:
         letters = len(word_paths)
