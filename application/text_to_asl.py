@@ -1,7 +1,11 @@
 import pandas as pd
 import re
+import os
 
-rule_id_dic = pd.read_csv('C:/Users/adria/Desktop/SpeechToASL_API/signs/ASL_classes.csv')
+# absolute_path = os.path.abspath(os.path.dirname('ASL.csv'))
+asl_classes = os.getcwd()+'/signs/ASL_classes.csv'
+
+rule_id_dic = pd.read_csv(asl_classes)
 classses = rule_id_dic['ENG_Class']
 sign_ids = rule_id_dic['ASL_SIGN_ID']
 sign_dir = rule_id_dic['ASL_SIGN_DIR']

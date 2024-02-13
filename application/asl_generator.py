@@ -1,5 +1,3 @@
-import sys
-sys.path.insert(2, '/application/')
 from .data_scripts import custom_audio_input, resetOuput
 from .greedyCTCDecoder import GreedyCTCDecoder
 from .text_to_asl import get_asl_transcript
@@ -9,6 +7,7 @@ import pandas as pd
 import IPython
 import torchaudio
 from PIL import Image
+import os
 
 
 def getASL(device, model, bundle, audio, audio_file_name):
@@ -35,8 +34,9 @@ def getASL(device, model, bundle, audio, audio_file_name):
 
     generate_transcript_mod = " ".join(generated_transcript.split('|'))
     generated_transcript_sign_ids = get_asl_transcript(generate_transcript_mod)
-
-    rule_id_dic = pd.read_csv('C:/Users/adria/Desktop/SpeechToASL_API/signs/ASL_classes.csv')
+   
+    asl_classes = os.getcwd()+'/signs/ASL_classes.csv'
+    rule_id_dic = pd.read_csv(asl_classes)
     classses = rule_id_dic['ENG_Class']
     sign_ids = rule_id_dic['ASL_SIGN_ID']
     sign_dir = rule_id_dic['ASL_SIGN_DIR']

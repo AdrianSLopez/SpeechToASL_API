@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 import torch
 import torchaudio
-import sys
-sys.path.insert(1, '/application/')
+import os
 from application.asl_generator import getASL
 from application.models.AudioModel import AudioModel
 from fastapi import FastAPI, File, UploadFile
@@ -42,9 +41,9 @@ async def upload_audio(file: UploadFile = File(...)):
     """
     Example POST request endpoint that receives an audio file.
     """
-    path = f"inputs/{file.filename}"
+    audio_file = os.getcwd() + f"/inputs/{file.filename}"
     audio_fn = file.filename.split('.')[0]
-    audio_id_queue[audio_fn] = "C:/Users/adria/Desktop/SpeechToASL_API/inputs/"+file.filename 
+    audio_id_queue[audio_fn] = audio_file
 
 
     with open(path, 'w+b') as file2:
