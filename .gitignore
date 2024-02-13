@@ -1,0 +1,7 @@
+# Ignore  directories
+/__pycache__/
+/application/__pycache__/
+/application/models/__pycache__/
+/inputs/
+/outputs/
+
