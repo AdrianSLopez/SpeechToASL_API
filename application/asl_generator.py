@@ -11,7 +11,7 @@ import torchaudio
 from PIL import Image
 
 
-def getASL(device, model, bundle, audio):
+def getASL(device, model, bundle, audio, audio_file_name):
     # data_scripts.custom_audio_input returns audio id, loation, transcript, tensor, and sample rate
     train_data_info = custom_audio_input(audio, "ph-remove in future")
 
@@ -36,7 +36,7 @@ def getASL(device, model, bundle, audio):
     generate_transcript_mod = " ".join(generated_transcript.split('|'))
     generated_transcript_sign_ids = get_asl_transcript(generate_transcript_mod)
 
-    rule_id_dic = pd.read_csv('C:/Users/adria/Desktop/SpeechToASL_API/data/ASL_classes.csv')
+    rule_id_dic = pd.read_csv('C:/Users/adria/Desktop/SpeechToASL_API/signs/ASL_classes.csv')
     classses = rule_id_dic['ENG_Class']
     sign_ids = rule_id_dic['ASL_SIGN_ID']
     sign_dir = rule_id_dic['ASL_SIGN_DIR']
@@ -62,9 +62,9 @@ def getASL(device, model, bundle, audio):
     letter = 0
 
     merged_asl = None
-    folder = '/Users/adria/Desktop/SpeechToASL_API/output/'
+    folder = '/Users/adria/Desktop/SpeechToASL_API/outputs/'+audio_file_name+'/'
     signs_folder = '/Users/adria/Desktop/SpeechToASL_API/signs/'
-    resetOuput(folder)
+    resetOuput(folder) # FOR TESTING ONLY, ON IMPLEMENTATION AUDIO FILES (NAMES) WILL BE UNIQUE
 
     for word_paths in asl_sign_paths:
         letters = len(word_paths)
