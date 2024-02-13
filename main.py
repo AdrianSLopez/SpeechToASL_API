@@ -42,9 +42,9 @@ async def upload_audio(file: UploadFile = File(...)):
     """
     Example POST request endpoint that receives an audio file.
     """
-    path = f"audios/{file.filename}"
+    path = f"inputs/{file.filename}"
     audio_fn = file.filename.split('.')[0]
-    audio_id_queue[audio_fn] = "C:/Users/adria/Desktop/SpeechToASL_API/audios/"+file.filename 
+    audio_id_queue[audio_fn] = "C:/Users/adria/Desktop/SpeechToASL_API/inputs/"+file.filename 
 
 
     with open(path, 'w+b') as file2:
