@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-rule_id_dic = pd.read_csv('C:/Users/adria/Desktop/SpeechToASL_API/data/ASL_classes.csv')
+rule_id_dic = pd.read_csv('C:/Users/adria/Desktop/SpeechToASL_API/signs/ASL_classes.csv')
 classses = rule_id_dic['ENG_Class']
 sign_ids = rule_id_dic['ASL_SIGN_ID']
 sign_dir = rule_id_dic['ASL_SIGN_DIR']
