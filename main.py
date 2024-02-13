@@ -46,7 +46,7 @@ async def upload_audio(file: UploadFile = File(...)):
     audio_id_queue[audio_fn] = audio_file
 
 
-    with open(path, 'w+b') as file2:
+    with open(audio_file, 'w+b') as file2:
         shutil.copyfileobj(file.file, file2)
 
     return {
