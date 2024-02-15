@@ -3,7 +3,6 @@ import torch
 import torchaudio
 import os
 from application.asl_generator import getASL
-from application.models.AudioModel import AudioModel
 from fastapi import FastAPI, File, UploadFile
 import shutil
 import re
