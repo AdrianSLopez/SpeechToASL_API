@@ -3,7 +3,7 @@ import torch
 import torchaudio
 import os
 from application.asl_generator import getASL
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Request
 import shutil
 import re
 
@@ -34,19 +34,20 @@ def get_asl_images(audio_id: str, query_param: str = None):
 
 
 @app.post("/upload_audio")
-async def upload_audio(file: UploadFile = File(...)):
+async def upload_audio(request: Request):
     """
     Example POST request endpoint that receives an audio file.
     """
-    audio_file = os.getcwd() + f"/inputs/{file.filename}"
-    audio_fn = file.filename.split('.')[0]
-    audio_id_queue[audio_fn] = audio_file
+    return request
+    # audio_file = os.getcwd() + f"/inputs/{file.filename}"
+    # audio_fn = file.filename.split('.')[0]
+    # audio_id_queue[audio_fn] = audio_file
 
 
-    with open(audio_file, 'w+b') as file2:
-        shutil.copyfileobj(file.file, file2)
+    # with open(audio_file, 'w+b') as file2:
+    #     shutil.copyfileobj(file.file, file2)
 
-    return {
-        'audio_id': audio_fn,
-        'file': file.filename    
-    }
+    # return {
+    #     'audio_id': audio_fn,
+    #     'file': file.filename    
+    # }
